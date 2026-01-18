@@ -103,14 +103,14 @@
     height: auto;
 }
 
-.main__section--home .cursos__logos--udemy,
+/* .main__section--home .cursos__logos--udemy,
 .main__section--home .cursos__logos--youtube,
 .main__section--home .cursos__logos--desarrollowebcom,
 .main__section--home .cursos__logos--escuela-it,
 .main__section--home .cursos__logos--jquery-books,
 .main__section--home .cursos__logos--jquery-manuales {
     border: 2px solid #ccc;
-}
+} */
 
 .main__section--home .cursos__logos--jquery-books,
 .main__section--home .cursos__logos--jquery-manuales {

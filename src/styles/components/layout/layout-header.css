@@ -153,12 +153,14 @@
     .jquery-logo,
     .jquery-ui-logo {
         width: 12rem;
+        height: auto;
     }
 
     .jquery-icon,
     .jquery-ui-icon,
     .github-icon {
         width: 3rem;
+        height: auto;
     }
 
 }
