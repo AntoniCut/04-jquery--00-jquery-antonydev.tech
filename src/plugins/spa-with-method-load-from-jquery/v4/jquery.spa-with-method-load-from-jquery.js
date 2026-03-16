@@ -221,6 +221,22 @@ export const spaWithMethodLoadFromJQueryPlugins = () => {
 
                 return new Promise(async (resolve, reject) => {
 
+                    const notifyRouteLoaded = () => {
+                        document.dispatchEvent(
+                            new CustomEvent('spa:route-loaded', {
+                                detail: {
+                                    id: route?.id || null,
+                                    path: route?.path || window.location.pathname
+                                }
+                            })
+                        );
+
+                        if (!window.__spaFirstRouteLoaded) {
+                            window.__spaFirstRouteLoaded = true;
+                            document.dispatchEvent(new CustomEvent('spa:first-route-loaded'));
+                        }
+                    };
+
 
                     //  -----  Verificar que la ruta es válida  -----
                     if (!route) {
@@ -279,6 +295,7 @@ export const spaWithMethodLoadFromJQueryPlugins = () => {
                         try {
 
                             await loadComponentsAndMeta();
+                            notifyRouteLoaded();
                             resolve();
 
                         } catch (err) {
@@ -305,11 +322,16 @@ export const spaWithMethodLoadFromJQueryPlugins = () => {
                         if (transition && typeof transition.finished?.then === "function")
 
                             transition.finished
-                                .then(resolve)
+                                .then(() => {
+                                    notifyRouteLoaded();
+                                    resolve();
+                                })
                                 .catch(reject);
 
-                        else
+                        else {
+                            notifyRouteLoaded();
                             resolve();
+                        }
 
 
                     } catch (err) {
@@ -321,6 +343,7 @@ export const spaWithMethodLoadFromJQueryPlugins = () => {
                         try {
 
                             await loadComponentsAndMeta();
+                            notifyRouteLoaded();
                             resolve();
 
                         } catch (err) {
